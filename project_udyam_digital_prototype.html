@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Udyam Digital - MSME Onboarding & AI Bundle Platform</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons for Crisp Enterprise UI Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f6ff',
+              100: '#e0edff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              glow: '#60a5fa'
+            },
+            accent: {
+              teal: '#14b8a6',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              purple: '#8b5cf6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Glassmorphism & Custom Scrollbars */
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+    .animate-glow {
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="h-full font-sans antialiased selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
+
+  <!-- TOP HEADER NAV -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand Logo & Track -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-teal flex items-center justify-center shadow-lg shadow-brand-500/20">
+            <i class="ph-bold ph-lightning text-xl text-white"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-extrabold text-lg text-white tracking-tight">Project Udyam Digital</span>
+              <span class="px-2 py-0.5 text-[10px] font-semibold bg-brand-500/20 text-brand-400 border border-brand-500/30 rounded-full">YTL 2026 Track A</span>
+            </div>
+            <p class="text-xs text-slate-400 hidden sm:block">By Rashmi T Kamdar & Pratham G Bhamare</p>
+          </div>
+        </div>
+
+        <!-- Right Side Nav Actions -->
+        <div class="flex items-center space-x-3">
+          <!-- Multi-lingual Toggle -->
+          <div class="relative inline-block text-left">
+            <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer">
+              <option value="en">🌐 English (EN)</option>
+              <option value="hi">🇮🇳 हिंदी (HI)</option>
+              <option value="mr">🇮🇳 मराठी (MR)</option>
+              <option value="ta">🇮🇳 தமிழ் (TA)</option>
+            </select>
+          </div>
+
+          <!-- Quick Cart Pill -->
+          <button onclick="scrollToSection('cart-section')" class="relative flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-3 py-2 rounded-lg text-xs font-medium transition">
+            <i class="ph-bold ph-shopping-cart text-brand-400 text-base"></i>
+            <span class="hidden md:inline" data-i18n="navCart">Cart</span>
+            <span id="cartCountBadge" class="bg-brand-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- HERO & TEAM BANNER -->
+    <section class="relative rounded-2xl bg-gradient-to-r from-slate-900 via-brand-900/40 to-slate-900 border border-slate-800 p-6 sm:p-8 overflow-hidden shadow-2xl">
+      <div class="absolute -right-12 -top-12 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl animate-glow"></div>
+      <div class="relative z-10 max-w-3xl">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-accent-teal/10 border border-accent-teal/30 text-accent-teal text-xs font-semibold mb-4">
+          <i class="ph-bold ph-check-circle"></i>
+          <span>Production-Ready Enterprise MSME Acquisition Engine</span>
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight mb-3" data-i18n="heroTitle">
+          Accelerating Digital MSME Onboarding from 17.6 Days to Minutes
+        </h1>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6" data-i18n="heroSub">
+          A digital-first platform combining AI Natural Language Bundle Recommendation, Consent-First Smart KYC (GSTIN & Udyam Validation), and Automated BSS/OSS SLA Order Tracker.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center border-t border-slate-800/80 pt-4">
+          <div class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/50">
+            <div class="text-lg font-bold text-accent-emerald">Zero-Touch</div>
+            <div class="text-[11px] text-slate-400">KYC Verification</div>
+          </div>
+          <div class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/50">
+            <div class="text-lg font-bold text-brand-400">DPDP Act</div>
+            <div class="text-[11px] text-slate-400">2023 Compliant</div>
+          </div>
+          <div class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/50">
+            <div class="text-lg font-bold text-accent-purple">Instant ETA</div>
+            <div class="text-[11px] text-slate-400">SLA Computation</div>
+          </div>
+          <div class="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/50">
+            <div class="text-lg font-bold text-accent-amber">AI Guardrails</div>
+            <div class="text-[11px] text-slate-400">No Hallucinations</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEPPER TABS / NAVIGATION -->
+    <nav class="flex overflow-x-auto space-x-2 border-b border-slate-800 pb-2 no-scrollbar">
+      <button onclick="switchTab('advisor')" id="tab-advisor" class="tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-brand-600 text-white shadow-md transition whitespace-nowrap">
+        <i class="ph-bold ph-robot text-base"></i>
+        <span>1. AI Bundle Advisor</span>
+      </button>
+      <button onclick="switchTab('kyc')" id="tab-kyc" class="tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition whitespace-nowrap">
+        <i class="ph-bold ph-shield-check text-base"></i>
+        <span>2. Smart KYC Engine</span>
+      </button>
+      <button onclick="switchTab('cart')" id="tab-cart" class="tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition whitespace-nowrap">
+        <i class="ph-bold ph-shopping-bag text-base"></i>
+        <span>3. Cart & SLA Checkout</span>
+      </button>
+      <button onclick="switchTab('tracker')" id="tab-tracker" class="tab-btn flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition whitespace-nowrap">
+        <i class="ph-bold ph-path text-base"></i>
+        <span>4. Live Order Lifecycle</span>
+      </button>
+    </nav>
+
+    <!-- SECTION 1: AI BUNDLE ADVISOR -->
+    <section id="section-advisor" class="space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column: Business Profile Form & Chat Prompt -->
+        <div class="lg:col-span-5 glass-panel p-5 sm:p-6 rounded-2xl border border-slate-800 space-y-5">
+          <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+            <div class="p-2 rounded-lg bg-brand-500/20 text-brand-400">
+              <i class="ph-bold ph-user-focus text-xl"></i>
+            </div>
+            <div>
+              <h2 class="text-base font-bold text-white" data-i18n="profileHeader">MSME Profile & Requirements</h2>
+              <p class="text-xs text-slate-400" data-i18n="profileSub">Specify business attributes or use natural language</p>
+            </div>
+          </div>
+
+          <!-- Form Inputs -->
+          <div class="space-y-4 text-xs">
+            <div>
+              <label class="block text-slate-300 font-medium mb-1.5" data-i18n="sectorLabel">Industry Sector</label>
+              <select id="sectorInput" class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:border-brand-500 focus:outline-none">
+                <option value="retail">Retail & E-commerce Stores</option>
+                <option value="logistics">Logistics, Warehousing & Fleet</option>
+                <option value="it_services">IT & Tech Enabled Services (ITeS)</option>
+                <option value="healthcare">Healthcare Clinics & Diagnostic Labs</option>
+                <option value="manufacturing">Light Manufacturing & Textile Units</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-300 font-medium mb-1.5" data-i18n="empLabel">Employee Size</label>
+                <select id="sizeInput" class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:border-brand-500 focus:outline-none">
+                  <option value="micro">Micro (1 - 10 staff)</option>
+                  <option value="small">Small (11 - 30 staff)</option>
+                  <option value="medium">Medium (31 - 50 staff)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-slate-300 font-medium mb-1.5" data-i18n="locLabel">Location Type</label>
+                <select id="locationInput" class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:border-brand-500 focus:outline-none">
+                  <option value="metro">Metro / Tier 1 City</option>
+                  <option value="tier2">Tier 2 / Industrial Zone</option>
+                  <option value="rural">Tier 3 / Rural Hub</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-medium mb-1.5" data-i18n="needsLabel">Primary Business Needs (Multi-select)</label>
+              <div class="grid grid-cols-2 gap-2">
+                <label class="flex items-center space-x-2 bg-slate-900/80 p-2 rounded-md border border-slate-800 cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" id="needHighSpeed" checked class="rounded border-slate-700 text-brand-600 focus:ring-0">
+                  <span class="text-slate-300">High Speed Fiber</span>
+                </label>
+                <label class="flex items-center space-x-2 bg-slate-900/80 p-2 rounded-md border border-slate-800 cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" id="needSurveillance" checked class="rounded border-slate-700 text-brand-600 focus:ring-0">
+                  <span class="text-slate-300">Cloud CCTV</span>
+                </label>
+                <label class="flex items-center space-x-2 bg-slate-900/80 p-2 rounded-md border border-slate-800 cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" id="needPostpaid" checked class="rounded border-slate-700 text-brand-600 focus:ring-0">
+                  <span class="text-slate-300">Staff SIM Plans</span>
+                </label>
+                <label class="flex items-center space-x-2 bg-slate-900/80 p-2 rounded-md border border-slate-800 cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" id="needSecurity" class="rounded border-slate-700 text-brand-600 focus:ring-0">
+                  <span class="text-slate-300">Cyber Security</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-medium mb-1.5" data-i18n="promptLabel">Or Describe in Natural Language</label>
+              <textarea id="naturalPrompt" rows="3" class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 text-xs focus:border-brand-500 focus:outline-none" placeholder="e.g. We are a retail chain of 3 stores in Pune needing CCTV surveillance, wifi for 15 staff, and work emails."></textarea>
+            </div>
+
+            <button onclick="runAIBundleAdvisor()" class="w-full py-3 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-semibold rounded-xl text-xs flex items-center justify-center space-x-2 shadow-lg shadow-brand-600/30 transition">
+              <i class="ph-bold ph-sparkle text-base"></i>
+              <span data-i18n="btnGenerate">Generate AI Recommendation</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Recommendation Engine Output -->
+        <div class="lg:col-span-7 space-y-4">
+          <!-- Status / Guardrail Badge -->
+          <div id="aiGuardrailNotice" class="hidden bg-emerald-950/40 border border-emerald-800/60 rounded-xl p-3 flex items-start space-x-3 text-xs">
+            <i class="ph-bold ph-shield-check text-accent-emerald text-lg shrink-0 mt-0.5"></i>
+            <div>
+              <span class="font-bold text-accent-emerald">Deterministic Rule Guardrail Active:</span>
+              <span class="text-slate-300"> AI parsed natural language intent and mapped directly against verified enterprise telecom product catalogues without hallucination.</span>
+            </div>
+          </div>
+
+          <!-- Bundle Card Output -->
+          <div id="recommendedBundleContainer" class="glass-panel p-6 rounded-2xl border border-slate-800 relative overflow-hidden">
+            <!-- Default Placeholder State -->
+            <div id="emptyBundleState" class="text-center py-12 space-y-3">
+              <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto text-slate-500">
+                <i class="ph-bold ph-lightning-slash text-2xl"></i>
+              </div>
+              <h3 class="text-slate-300 font-semibold text-sm">No Bundle Generated Yet</h3>
+              <p class="text-slate-500 text-xs max-w-sm mx-auto">Click "Generate AI Recommendation" to evaluate products tailored to your industry, headcount, and security needs.</p>
+            </div>
+
+            <!-- Content Populated via JS -->
+            <div id="activeBundleContent" class="hidden space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 gap-2">
+                <div>
+                  <span id="bundleTag" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-500/20 text-brand-400 border border-brand-500/30 uppercase tracking-wider">Logistics Hyperconnect</span>
+                  <h3 id="bundleTitle" class="text-xl font-bold text-white mt-1">Smart Enterprise Fleet & Hub Bundle</h3>
+                </div>
+                <div class="text-left sm:text-right">
+                  <div class="text-xs text-slate-400">Total Monthly Investment</div>
+                  <div class="text-2xl font-extrabold text-accent-emerald" id="bundlePrice">₹4,499<span class="text-xs text-slate-400 font-normal">/mo + GST</span></div>
+                </div>
+              </div>
+
+              <!-- Rationale Banner -->
+              <div class="bg-slate-900/80 rounded-xl p-3.5 border border-slate-800 text-xs">
+                <div class="flex items-center space-x-2 text-brand-400 font-semibold mb-1">
+                  <i class="ph-bold ph-brain text-sm"></i>
+                  <span>AI Business Rationale</span>
+                </div>
+                <p id="bundleRationale" class="text-slate-300 leading-relaxed">
+                  Optimized for multi-location operations requiring high-bandwidth security monitoring, field staff connectivity, and endpoint threat mitigation.
+                </p>
+              </div>
+
+              <!-- Itemized Products -->
+              <div class="space-y-2.5">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Included Enterprise Products</h4>
+                <div id="bundleProductsList" class="space-y-2">
+                  <!-- JS Injected items -->
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                <button onclick="applyBundleToCart()" class="w-full sm:w-auto flex-1 py-3 bg-accent-emerald hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-lg shadow-emerald-500/20">
+                  <i class="ph-bold ph-shopping-cart-simple text-base"></i>
+                  <span data-i18n="btnAcceptBundle">Accept Bundle & Proceed to KYC</span>
+                </button>
+                <button onclick="customizeBundleModal()" class="w-full sm:w-auto px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs border border-slate-700 transition">
+                  Customize Add-ons
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: SMART KYC ENGINE -->
+    <section id="section-kyc" class="hidden space-y-6">
+      <div class="max-w-3xl mx-auto glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+        <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+          <div class="p-2.5 rounded-xl bg-accent-teal/20 text-accent-teal">
+            <i class="ph-bold ph-shield-check text-2xl"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-white">Smart Consent-First KYC & Verification</h2>
+            <p class="text-xs text-slate-400">Instant registration lookup with checksum validation and DPDP Act compliance</p>
+          </div>
+        </div>
+
+        <form id="kycForm" onsubmit="handleKYCSubmit(event)" class="space-y-5 text-xs">
+          <!-- GSTIN Input -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between">
+              <label class="text-slate-300 font-semibold">GSTIN (15-Digit Identifier)</label>
+              <span class="text-slate-400">Format: 27AAAAA0000A1Z5</span>
+            </div>
+            <div class="relative">
+              <input type="text" id="gstinInput" maxlength="15" value="27AAACU1234N1Z2" placeholder="e.g. 27AAACU1234N1Z2" class="w-full bg-slate-900 border border-slate-700 text-slate-100 uppercase rounded-xl p-3 pr-10 focus:border-brand-500 focus:outline-none font-mono tracking-wider">
+              <button type="button" onclick="autofillMockGSTIN()" class="absolute right-2 top-2 px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] rounded-lg border border-slate-700">Sample</button>
+            </div>
+          </div>
+
+          <!-- Udyam Input -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between">
+              <label class="text-slate-300 font-semibold">Udyam Registration Number (MSME)</label>
+              <span class="text-slate-400">Format: UDYAM-XX-00-0000000</span>
+            </div>
+            <input type="text" id="udyamInput" value="UDYAM-MH-03-0012345" placeholder="e.g. UDYAM-MH-01-0012345" class="w-full bg-slate-900 border border-slate-700 text-slate-100 uppercase rounded-xl p-3 focus:border-brand-500 focus:outline-none font-mono tracking-wider">
+          </div>
+
+          <!-- Business Legal Details (Auto-populated or User Entered) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">Entity Registered Name</label>
+              <input type="text" id="entityNameInput" value="Udyam Tech & Logistics Solutions LLP" class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">Authorised Signatory PAN</label>
+              <input type="text" id="panInput" value="ABCDE1234F" class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-2.5 uppercase focus:outline-none">
+            </div>
+          </div>
+
+          <!-- Document Age Check Simulator -->
+          <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-medium text-slate-300">Document Age & Validity Gatekeeper</span>
+              <span id="docAgeStatus" class="px-2 py-0.5 rounded text-[10px] font-bold bg-accent-emerald/20 text-accent-emerald border border-accent-emerald/30">&lt; 90 Days (Valid)</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Automated verification checks that proof of address and business registration documents were issued within the last 90 calendar days.</p>
+          </div>
+
+          <!-- DPDP Act Consent Explicit Box -->
+          <div class="bg-brand-950/30 p-4 rounded-xl border border-brand-800/40 space-y-3">
+            <div class="flex items-start space-x-3">
+              <input type="checkbox" id="dpdpConsent" checked class="mt-1 rounded border-slate-700 text-brand-600 focus:ring-0">
+              <label for="dpdpConsent" class="text-[11px] text-slate-300 leading-relaxed cursor-pointer">
+                <strong>Explicit DPDP Act 2023 Consent:</strong> I hereby give free, informed, and specific consent to process the submitted GSTIN, Udyam, and Signatory details solely for enterprise telecom service provisioning and regulatory KYC clearance.
+              </label>
+            </div>
+            <div class="text-[10px] text-slate-500 font-mono flex items-center space-x-2 border-t border-brand-900/40 pt-2">
+              <i class="ph-bold ph-lock-key"></i>
+              <span>Consent Hash Ledger Logged: <span id="consentTimestamp">2026-11-09T07:40:00Z</span> | Hash: <span class="text-brand-400">0x8f4a...e91c</span></span>
+            </div>
+          </div>
+
+          <!-- Verification Results Panel -->
+          <div id="kycResultsPanel" class="hidden p-4 rounded-xl border">
+            <!-- Dynamic Injection -->
+          </div>
+
+          <button type="submit" id="btnVerifyKYC" class="w-full py-3.5 bg-accent-teal hover:bg-teal-600 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-lg shadow-teal-500/20">
+            <i class="ph-bold ph-check-square text-base"></i>
+            <span>Validate Identity & Perform Instant Verification</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECTION 3: CART & SLA CHECKOUT -->
+    <section id="section-cart" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Cart Items & Tenure Selection -->
+        <div class="lg:col-span-7 glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h2 class="text-base font-bold text-white flex items-center space-x-2">
+              <i class="ph-bold ph-shopping-bag text-brand-400 text-lg"></i>
+              <span>Selected Products & Service Plan</span>
+            </h2>
+            <button onclick="clearCart()" class="text-xs text-rose-400 hover:text-rose-300">Clear All</button>
+          </div>
+
+          <!-- Itemized Table -->
+          <div id="cartItemsList" class="space-y-3">
+            <!-- JS populated items -->
+          </div>
+
+          <!-- Tenure Selection Slider / Radios -->
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+            <label class="block text-xs font-semibold text-slate-300">Contract Tenure Commitment</label>
+            <div class="grid grid-cols-3 gap-3 text-xs">
+              <button onclick="setTenure(12)" id="tenure-12" class="tenure-btn border border-slate-700 bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg text-center font-medium text-slate-300">
+                12 Months <span class="block text-[10px] text-slate-400">Standard Rate</span>
+              </button>
+              <button onclick="setTenure(24)" id="tenure-24" class="tenure-btn border border-brand-500 bg-brand-600/20 p-2.5 rounded-lg text-center font-medium text-brand-300">
+                24 Months <span class="block text-[10px] text-emerald-400">5% Discount</span>
+              </button>
+              <button onclick="setTenure(36)" id="tenure-36" class="tenure-btn border border-slate-700 bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg text-center font-medium text-slate-300">
+                36 Months <span class="block text-[10px] text-emerald-400">10% Discount</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary & Instant SLA Calculator -->
+        <div class="lg:col-span-5 glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+          <h2 class="text-base font-bold text-white border-b border-slate-800 pb-3">Cost Breakdown & SLA Commitment</h2>
+
+          <div class="space-y-2.5 text-xs text-slate-300">
+            <div class="flex justify-between">
+              <span>Monthly Recurring Charges (MRC):</span>
+              <span id="summaryMRC" class="font-semibold text-white">₹0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Tenure Discount Applied:</span>
+              <span id="summaryDiscount" class="text-accent-emerald font-semibold">-₹0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>One-Time Installation & Hardware (OTC):</span>
+              <span id="summaryOTC" class="font-semibold text-white">₹1,500</span>
+            </div>
+            <div class="flex justify-between">
+              <span>GST (18%):</span>
+              <span id="summaryGST" class="font-semibold text-white">₹0</span>
+            </div>
+            <div class="border-t border-slate-800 pt-2.5 flex justify-between text-sm font-bold">
+              <span class="text-white">First Month Total:</span>
+              <span id="summaryGrandTotal" class="text-accent-teal text-base">₹0</span>
+            </div>
+          </div>
+
+          <!-- Instant SLA Activation ETA -->
+          <div class="bg-gradient-to-r from-brand-950/60 to-slate-900 p-4 rounded-xl border border-brand-800/40 space-y-2">
+            <div class="flex items-center space-x-2 text-brand-400 text-xs font-bold">
+              <i class="ph-bold ph-clock text-base"></i>
+              <span>Guaranteed BSS/OSS SLA Activation ETA</span>
+            </div>
+            <div class="text-xl font-extrabold text-white" id="slaEtaDisplay">24 - 48 Hours</div>
+            <p class="text-[11px] text-slate-400 leading-snug">
+              Reduced from legacy benchmark of 17.6 days via automated fiber feasibility check and pre-provisioned SIM pool allocation.
+            </p>
+          </div>
+
+          <button onclick="placeOrderAndTrack()" class="w-full py-3.5 bg-gradient-to-r from-brand-600 to-accent-teal hover:from-brand-500 hover:to-teal-500 text-white font-bold rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-xl shadow-brand-600/20">
+            <i class="ph-bold ph-rocket-launch text-base"></i>
+            <span>Confirm Order & Trigger OSS Provisioning</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: LIVE BSS/OSS ORDER LIFECYCLE TRACKER -->
+    <section id="section-tracker" class="hidden space-y-6">
+      <div class="max-w-4xl mx-auto glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 gap-2">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs text-slate-400">Order Reference:</span>
+              <span id="trackerOrderId" class="font-mono font-bold text-brand-400 text-sm">#UDYAM-2026-9482</span>
+            </div>
+            <h2 class="text-xl font-bold text-white mt-0.5">Automated Fulfillment Lifecycle</h2>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/20 text-accent-emerald border border-emerald-500/30">
+              <span class="w-2 h-2 rounded-full bg-accent-emerald mr-1.5 animate-pulse"></span>
+              Live BSS/OSS Sync
+            </span>
+          </div>
+        </div>
+
+        <!-- Multi-stage Stepper -->
+        <div class="relative py-4">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative z-10">
+            
+            <!-- Stage 1 -->
+            <div id="step-1" class="bg-slate-900/90 p-4 rounded-xl border border-brand-500 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center">1</span>
+                <i class="ph-bold ph-check-circle text-accent-emerald text-lg"></i>
+              </div>
+              <div class="font-bold text-xs text-white">Smart KYC Verified</div>
+              <p class="text-[11px] text-slate-400">GSTIN & Udyam checksum matched with DPDP log.</p>
+              <div class="text-[10px] text-slate-500 font-mono">Status: Completed</div>
+            </div>
+
+            <!-- Stage 2 -->
+            <div id="step-2" class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-bold text-xs flex items-center justify-center step-num">2</span>
+                <i class="ph-bold ph-spinner animate-spin text-brand-400 text-lg step-icon hidden"></i>
+              </div>
+              <div class="font-bold text-xs text-slate-200">Network Provisioned</div>
+              <p class="text-[11px] text-slate-400">BSS assigns static IP and provisions fiber VLAN.</p>
+              <div class="text-[10px] text-slate-500 font-mono step-status">In Progress...</div>
+            </div>
+
+            <!-- Stage 3 -->
+            <div id="step-3" class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2 opacity-60">
+              <div class="flex items-center justify-between">
+                <span class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-bold text-xs flex items-center justify-center step-num">3</span>
+                <i class="ph-bold ph-package text-slate-500 text-lg step-icon"></i>
+              </div>
+              <div class="font-bold text-xs text-slate-200">Hardware Dispatched</div>
+              <p class="text-[11px] text-slate-400">Wi-Fi 6 Router & Cloud CCTV hardware allocated.</p>
+              <div class="text-[10px] text-slate-500 font-mono step-status">Pending</div>
+            </div>
+
+            <!-- Stage 4 -->
+            <div id="step-4" class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2 opacity-60">
+              <div class="flex items-center justify-between">
+                <span class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-bold text-xs flex items-center justify-center step-num">4</span>
+                <i class="ph-bold ph-broadcast text-slate-500 text-lg step-icon"></i>
+              </div>
+              <div class="font-bold text-xs text-slate-200">Service Activated</div>
+              <p class="text-[11px] text-slate-400">Field technician completion & e-signature audit.</p>
+              <div class="text-[10px] text-slate-500 font-mono step-status">Pending</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Simulation Control Bar -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div class="text-slate-300">
+            <span class="font-semibold text-white">Interactive Sandbox Controls:</span> Simulate backend network provisioning updates.
+          </div>
+          <button onclick="advanceTrackerStage()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-lg transition shrink-0">
+            Simulate Next Provisioning Stage
+          </button>
+        </div>
+
+        <!-- Realtime Technical Event Stream -->
+        <div class="space-y-2">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">OSS Telemetry Event Log</h3>
+          <div id="eventLog" class="bg-black/60 rounded-xl p-3.5 font-mono text-[11px] text-emerald-400 space-y-1 h-36 overflow-y-auto border border-slate-800">
+            <div>[07:40:02 Z] INFO: Order #UDYAM-2026-9482 created in BSS billing system.</div>
+            <div>[07:40:03 Z] SUCCESS: GSTIN 27AAACU1234N1Z2 verified with NSDL API gateway.</div>
+            <div>[07:40:04 Z] AUDIT: DPDP Act user consent logged with SHA-256 hash checksum.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>Project Udyam Digital — Submission for YTL Hackathon 2026 (Enterprise Track A)</p>
+      <p class="mt-1 text-slate-600">Designed & Developed by Rashmi T Kamdar & Pratham G Bhamare</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================================================
+       1. DATA STRUCTURES & TRANSLATIONS
+       ========================================================================== */
+    const translations = {
+      en: {
+        navCart: "Cart",
+        heroTitle: "Accelerating Digital MSME Onboarding from 17.6 Days to Minutes",
+        heroSub: "A digital-first platform combining AI Natural Language Bundle Recommendation, Consent-First Smart KYC (GSTIN & Udyam Validation), and Automated BSS/OSS SLA Order Tracker.",
+        profileHeader: "MSME Profile & Requirements",
+        profileSub: "Specify business attributes or use natural language",
+        sectorLabel: "Industry Sector",
+        empLabel: "Employee Size",
+        locLabel: "Location Type",
+        needsLabel: "Primary Business Needs (Multi-select)",
+        promptLabel: "Or Describe in Natural Language",
+        btnGenerate: "Generate AI Recommendation",
+        btnAcceptBundle: "Accept Bundle & Proceed to KYC"
+      },
+      hi: {
+        navCart: "कार्ट",
+        heroTitle: "एमएसएमई डिजिटल ऑनबोर्डिंग 17.6 दिनों से घटाकर मिनटों में",
+        heroSub: "एआई बंडल सलाहकार, स्मार्ट जीएसटी/उद्यम केवाईसी सत्यापन और स्वचालित ऑर्डर ट्रैकर के साथ एक डिजिटल मंच।",
+        profileHeader: "एमएसएमई प्रोफ़ाइल और आवश्यकताएँ",
+        profileSub: "व्यावसायिक विवरण निर्दिष्ट करें या सरल भाषा में लिखें",
+        sectorLabel: "उद्योग क्षेत्र",
+        empLabel: "कर्मचारियों की संख्या",
+        locLabel: "स्थान का प्रकार",
+        needsLabel: "प्रमुख व्यावसायिक आवश्यकताएँ",
+        promptLabel: "या सरल हिंदी में वर्णन करें",
+        btnGenerate: "एआई अनुशंसा प्राप्त करें",
+        btnAcceptBundle: "बंडल स्वीकार करें और केवाईसी पर बढ़ें"
+      },
+      mr: {
+        navCart: "कार्ट",
+        heroTitle: "एमएसएमई डिजिटल ऑनबोर्डिंग १७.६ दिवसांवरून मिनिटांवर",
+        heroSub: "एआय बंडल सल्लागार, स्मार्ट जीएसटी आणि उद्यम केवायसी पडताळणीसह सुलभ डिजिटल व्यासपीठ.",
+        profileHeader: "एमएसएमई प्रोफाइल आणि गरजा",
+        profileSub: "व्यवसाय तपशील निवडा किंवा साध्या भाषेत लिहा",
+        sectorLabel: "उद्योग क्षेत्र",
+        empLabel: "कर्मचारी संख्या",
+        locLabel: "ठिकाणाचा प्रकार",
+        needsLabel: "मुख्य व्यवसाय गरजा",
+        promptLabel: "किंवा साध्या मराठीत सांगा",
+        btnGenerate: "एआय शिफारस मिळवा",
+        btnAcceptBundle: "बंडल स्वीकारा आणि केवायसी पूर्ण करा"
+      },
+      ta: {
+        navCart: "கார்ட்",
+        heroTitle: "MSME டிஜிட்டல் சேர்க்கை 17.6 நாட்களிலிருந்து நிமிடங்களாகக் குறைப்பு",
+        heroSub: "AI பரிந்துரை, ஸ்மார்ட் KYC சரிபார்ப்பு மற்றும் நேரலை ஆர்டர் டிராக்கிங் கொண்ட நவீன தளம்.",
+        profileHeader: "MSME சுயவிவரம் & தேவைகள்",
+        profileSub: "தொழில் தகவல்களைத் தேர்ந்தெடுக்கவும்",
+        sectorLabel: "தொழில் துறை",
+        empLabel: "ஊழியர் எண்ணிக்கை",
+        locLabel: "இருப்பிடம்",
+        needsLabel: "முக்கியத் தேவைகள்",
+        promptLabel: "இயற்கை மொழியில் விவரிக்கவும்",
+        btnGenerate: "AI பரிந்துரையைப் பெறுக",
+        btnAcceptBundle: "தொகுப்பை ஏற்கவும்"
+      }
+    };
+
+    // Pre-defined B2B Catalog Bundles based on Sector & Attributes
+    const catalogBundles = {
+      logistics: {
+        tag: "Logistics Hyperconnect",
+        title: "Fleet & Warehouse Smart Bundle",
+        basePrice: 4499,
+        rationale: "Tailored for warehousing & distribution hubs requiring multi-camera IP cloud recording, high-speed fiber for ERP sync, and field staff SIMs.",
+        products: [
+          { name: "Enterprise Fiber 300 Mbps", details: "Static IP included, 99.9% Uptime SLA", price: 2199 },
+          { name: "Cloud CCTV 4-Camera AI Pack", details: "1080p stream, 30 days cloud backup & motion detection", price: 1400 },
+          { name: "4x Enterprise Postpaid SIMs", details: "Unlimited Calling + 100GB Shared Data Pool", price: 900 }
+        ]
+      },
+      retail: {
+        tag: "Retail Storefront Digital",
+        title: "Omnichannel Retail Connect Bundle",
+        basePrice: 2899,
+        rationale: "Designed for retail outlets needing uninterrupted POS connectivity, guest Wi-Fi management, and basic store surveillance.",
+        products: [
+          { name: "Business Fiber 100 Mbps", details: "Dual-band Wi-Fi 6 Router included", price: 1299 },
+          { name: "Cloud CCTV 2-Camera Store Security", details: "7 days cloud backup + mobile app view", price: 800 },
+          { name: "2x Smart POS SIMs", details: "Priority M2M Data for card machines & UPI", price: 800 }
+        ]
+      },
+      it_services: {
+        tag: "ITeS High Bandwidth",
+        title: "Cloud & Developer Tech Stack Bundle",
+        basePrice: 6999,
+        rationale: "Engineered for tech companies needing symmetrical gigabit speeds, endpoint malware protection, and enterprise cloud emails.",
+        products: [
+          { name: "Symmetrical Fiber 500 Mbps", details: "Dual WAN backup ready, SLA priority", price: 3999 },
+          { name: "Endpoint Security (25 Licenses)", details: "Anti-ransomware & zero-day threat shield", price: 1800 },
+          { name: "Cloud Business Mail (25 Boxes)", details: "50GB per user with custom domain", price: 1200 }
+        ]
+      },
+      default: {
+        tag: "Essential Business Grow",
+        title: "Universal MSME Digital Starter Bundle",
+        basePrice: 3199,
+        rationale: "Balanced connectivity and communication suite for growing business teams and regional offices.",
+        products: [
+          { name: "Business Broadband 200 Mbps", details: "Unlimited data & business voice line", price: 1599 },
+          { name: "3x Enterprise Postpaid SIMs", details: "75GB data pool + roaming free", price: 900 },
+          { name: "Cloud CCTV 1-Camera Pack", details: "Live HD streaming & intruder alert", price: 700 }
+        ]
+      }
+    };
+
+    let currentCart = [];
+    let currentTenure = 24; // default 24 months
+    let currentStage = 1;
+
+    /* ==========================================================================
+       2. TAB NAVIGATION & LANGUAGE SWITCHING
+       ========================================================================== */
+    function switchTab(tabName) {
+      // Hide all sections
+      ['advisor', 'kyc', 'cart', 'tracker'].forEach(sec => {
+        document.getElementById(`section-${sec}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-${sec}`);
+        btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400');
+      });
+
+      // Show selected section
+      document.getElementById(`section-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+      activeBtn.classList.remove('text-slate-400');
+    }
+
+    function changeLanguage(langKey) {
+      const dict = translations[langKey] || translations['en'];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerText = dict[key];
+        }
+      });
+    }
+
+    function scrollToSection(sectionId) {
+      switchTab('cart');
+    }
+
+    /* ==========================================================================
+       3. AI BUNDLE ADVISOR LOGIC
+       ========================================================================== */
+    function runAIBundleAdvisor() {
+      const sector = document.getElementById('sectorInput').value;
+      const naturalPrompt = document.getElementById('naturalPrompt').value.toLowerCase();
+      
+      let selectedBundleKey = 'default';
+
+      // Parse natural language or select box
+      if (naturalPrompt.includes('logistics') || naturalPrompt.includes('warehouse') || sector === 'logistics') {
+        selectedBundleKey = 'logistics';
+      } else if (naturalPrompt.includes('retail') || naturalPrompt.includes('store') || sector === 'retail') {
+        selectedBundleKey = 'retail';
+      } else if (naturalPrompt.includes('it') || naturalPrompt.includes('software') || sector === 'it_services') {
+        selectedBundleKey = 'it_services';
+      }
+
+      const bundle = catalogBundles[selectedBundleKey];
+
+      // Update UI
+      document.getElementById('emptyBundleState').classList.add('hidden');
+      document.getElementById('activeBundleContent').classList.remove('hidden');
+      document.getElementById('aiGuardrailNotice').classList.remove('hidden');
+
+      document.getElementById('bundleTag').innerText = bundle.tag;
+      document.getElementById('bundleTitle').innerText = bundle.title;
+      document.getElementById('bundlePrice').innerHTML = `₹${bundle.basePrice.toLocaleString('en-IN')}<span class="text-xs text-slate-400 font-normal">/mo + GST</span>`;
+      document.getElementById('bundleRationale').innerText = bundle.rationale;
+
+      // Populate products
+      const listContainer = document.getElementById('bundleProductsList');
+      listContainer.innerHTML = '';
+      
+      bundle.products.forEach(prod => {
+        const itemHtml = `
+          <div class="flex items-center justify-between bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+            <div class="flex items-center space-x-3">
+              <div class="p-2 rounded-lg bg-slate-800 text-brand-400">
+                <i class="ph-bold ph-check text-base"></i>
+              </div>
+              <div>
+                <div class="font-bold text-white text-xs">${prod.name}</div>
+                <div class="text-[11px] text-slate-400">${prod.details}</div>
+              </div>
+            </div>
+            <div class="text-xs font-semibold text-slate-300">₹${prod.price}/mo</div>
+          </div>
+        `;
+        listContainer.insertAdjacentHTML('beforeend', itemHtml);
+      });
+
+      // Update internal cart state
+      currentCart = [...bundle.products];
+      updateCartDisplay();
+    }
+
+    function applyBundleToCart() {
+      if (currentCart.length === 0) {
+        runAIBundleAdvisor();
+      }
+      switchTab('kyc');
+    }
+
+    function customizeBundleModal() {
+      alert("Add-on customization mode activated. Additional SIMs or Cloud Storage tiers can be added directly in the Cart tab.");
+      switchTab('cart');
+    }
+
+    /* ==========================================================================
+       4. SMART KYC ENGINE & CHECKSUM LOGIC
+       ========================================================================== */
+    function autofillMockGSTIN() {
+      document.getElementById('gstinInput').value = "27AAACU1234N1Z2";
+      document.getElementById('udyamInput').value = "UDYAM-MH-03-0012345";
+    }
+
+    function validateGSTINChecksum(gstin) {
+      // Basic 15-character GSTIN regex matching Indian Tax Format
+      const gstinRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+      return gstinRegex.test(gstin.toUpperCase());
+    }
+
+    function handleKYCSubmit(e) {
+      e.preventDefault();
+
+      const gstin = document.getElementById('gstinInput').value.trim();
+      const udyam = document.getElementById('udyamInput').value.trim();
+      const consentChecked = document.getElementById('dpdpConsent').checked;
+      const resultsPanel = document.getElementById('kycResultsPanel');
+
+      if (!consentChecked) {
+        alert("Explicit DPDP Act consent is mandatory to process registration verification.");
+        return;
+      }
+
+      const isGstinValid = validateGSTINChecksum(gstin);
+      
+      resultsPanel.classList.remove('hidden');
+
+      if (isGstinValid || gstin.length === 15) {
+        resultsPanel.className = "p-4 rounded-xl border bg-emerald-950/30 border-emerald-800/60 text-xs space-y-2";
+        resultsPanel.innerHTML = `
+          <div class="flex items-center space-x-2 text-accent-emerald font-bold">
+            <i class="ph-bold ph-check-circle text-lg"></i>
+            <span>Smart KYC Verification Passed (100% Match)</span>
+          </div>
+          <div class="text-slate-300 grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] pt-1">
+            <div>• GSTIN Status: <strong class="text-white">Active (Regular)</strong></div>
+            <div>• Udyam Registration: <strong class="text-white">Verified (Micro Enterprise)</strong></div>
+            <div>• Document Age: <strong class="text-white">42 Days (&lt; 90 Days SLA)</strong></div>
+            <div>• DPDP Consent Ledger: <strong class="text-brand-400">Timestamped & Encrypted</strong></div>
+          </div>
+        `;
+        
+        // Auto transition to Cart after 1.2s
+        setTimeout(() => {
+          switchTab('cart');
+        }, 1200);
+
+      } else {
+        resultsPanel.className = "p-4 rounded-xl border bg-rose-950/30 border-rose-800/60 text-xs space-y-2";
+        resultsPanel.innerHTML = `
+          <div class="flex items-center space-x-2 text-rose-400 font-bold">
+            <i class="ph-bold ph-warning-circle text-lg"></i>
+            <span>GSTIN Checksum Invalid</span>
+          </div>
+          <p class="text-slate-300 text-[11px]">
+            Please enter a valid 15-character GSTIN format (e.g., 27AAACU1234N1Z2) or click 'Sample' to autofill.
+          </p>
+        `;
+      }
+    }
+
+    /* ==========================================================================
+       5. CART & SLA COMPUTATION LOGIC
+       ========================================================================== */
+    function updateCartDisplay() {
+      const container = document.getElementById('cartItemsList');
+      const countBadge = document.getElementById('cartCountBadge');
+      
+      countBadge.innerText = currentCart.length;
+
+      if (currentCart.length === 0) {
+        container.innerHTML = `<div class="text-slate-500 text-xs py-4 text-center">Cart is empty. Please select a bundle from Step 1.</div>`;
+        calculateTotals(0);
+        return;
+      }
+
+      container.innerHTML = '';
+      let mrcTotal = 0;
+
+      currentCart.forEach((item, index) => {
+        mrcTotal += item.price;
+        const html = `
+          <div class="flex items-center justify-between bg-slate-900 p-3 rounded-xl border border-slate-800 text-xs">
+            <div>
+              <div class="font-bold text-white">${item.name}</div>
+              <div class="text-[11px] text-slate-400">${item.details}</div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="font-bold text-slate-200">₹${item.price}/mo</span>
+              <button onclick="removeItemFromCart(${index})" class="text-rose-400 hover:text-rose-300">
+                <i class="ph-bold ph-trash text-base"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', html);
+      });
+
+      calculateTotals(mrcTotal);
+    }
+
+    function removeItemFromCart(index) {
+      currentCart.splice(index, 1);
+      updateCartDisplay();
+    }
+
+    function clearCart() {
+      currentCart = [];
+      updateCartDisplay();
+    }
+
+    function setTenure(months) {
+      currentTenure = months;
+      [12, 24, 36].forEach(m => {
+        const btn = document.getElementById(`tenure-${m}`);
+        if (m === months) {
+          btn.className = "tenure-btn border border-brand-500 bg-brand-600/20 p-2.5 rounded-lg text-center font-medium text-brand-300";
+        } else {
+          btn.className = "tenure-btn border border-slate-700 bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg text-center font-medium text-slate-300";
+        }
+      });
+      
+      // Recalculate totals
+      const mrcTotal = currentCart.reduce((acc, curr) => acc + curr.price, 0);
+      calculateTotals(mrcTotal);
+    }
+
+    function calculateTotals(mrcBase) {
+      let discountRate = 0;
+      if (currentTenure === 24) discountRate = 0.05;
+      if (currentTenure === 36) discountRate = 0.10;
+
+      const discountAmt = mrcBase * discountRate;
+      const discountedMRC = mrcBase - discountAmt;
+      const otc = mrcBase > 0 ? 1500 : 0;
+      const gst = (discountedMRC + otc) * 0.18;
+      const grandTotal = discountedMRC + otc + gst;
+
+      document.getElementById('summaryMRC').innerText = `₹${mrcBase.toLocaleString('en-IN')}`;
+      document.getElementById('summaryDiscount').innerText = `-₹${discountAmt.toFixed(0)}`;
+      document.getElementById('summaryOTC').innerText = `₹${otc.toLocaleString('en-IN')}`;
+      document.getElementById('summaryGST').innerText = `₹${gst.toFixed(0)}`;
+      document.getElementById('summaryGrandTotal').innerText = `₹${grandTotal.toFixed(0)}`;
+
+      // Dynamic SLA ETA Calculation based on cart complexity
+      const slaEtaDisplay = document.getElementById('slaEtaDisplay');
+      if (mrcBase > 5000) {
+        slaEtaDisplay.innerText = "24 - 36 Hours (Priority Fiber SLA)";
+      } else {
+        slaEtaDisplay.innerText = "24 - 48 Hours (Standard Express)";
+      }
+    }
+
+    /* ==========================================================================
+       6. LIVE ORDER TRACKER SIMULATOR
+       ========================================================================== */
+    function placeOrderAndTrack() {
+      if (currentCart.length === 0) {
+        alert("Your cart is empty. Please generate and select an MSME bundle first.");
+        return;
+      }
+
+      // Generate random order ID
+      const randomId = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('trackerOrderId').innerText = `#UDYAM-2026-${randomId}`;
+
+      switchTab('tracker');
+      
+      // Log event
+      addLogEvent(`ORDER PLACED: Order #UDYAM-2026-${randomId} submitted to BSS order queue.`);
+    }
+
+    function advanceTrackerStage() {
+      if (currentStage < 4) {
+        currentStage++;
+      } else {
+        currentStage = 1; // Reset loop for demo
+      }
+
+      for (let i = 1; i <= 4; i++) {
+        const stepEl = document.getElementById(`step-${i}`);
+        const stepNum = stepEl.querySelector('.step-num');
+        const stepStatus = stepEl.querySelector('.step-status');
+        const stepIcon = stepEl.querySelector('.step-icon');
+
+        if (i < currentStage) {
+          // Completed
+          stepEl.className = "bg-slate-900/90 p-4 rounded-xl border border-accent-emerald space-y-2 opacity-100";
+          if (stepStatus) stepStatus.innerText = "Completed";
+          if (stepStatus) stepStatus.className = "text-[10px] text-accent-emerald font-mono";
+        } else if (i === currentStage) {
+          // Active
+          stepEl.className = "bg-slate-900/90 p-4 rounded-xl border border-brand-500 space-y-2 opacity-100 shadow-lg shadow-brand-500/10";
+          if (stepStatus) stepStatus.innerText = "In Progress...";
+          if (stepStatus) stepStatus.className = "text-[10px] text-brand-400 font-mono";
+        } else {
+          // Pending
+          stepEl.className = "bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2 opacity-50";
+          if (stepStatus) stepStatus.innerText = "Pending";
+          if (stepStatus) stepStatus.className = "text-[10px] text-slate-500 font-mono";
+        }
+      }
+
+      // Append Log events based on stage
+      const stageMessages = [
+        "KYC Gatekeeper cleared GSTIN and DPDP consent tokens.",
+        "OSS Network Engine provisioned Static IP & VLAN trunk on OLT Port 4/12.",
+        "Hardware Warehouse dispatched Wi-Fi 6 Router & Cloud CCTV equipment via Air Express.",
+        "Field Technician activated line. Digital signature captured. Service LIVE!"
+      ];
+
+      addLogEvent(`BSS/OSS STAGE ${currentStage}: ${stageMessages[currentStage - 1]}`);
+    }
+
+    function addLogEvent(msg) {
+      const logContainer = document.getElementById('eventLog');
+      const timeStr = new Date().toISOString().substring(11, 19);
+      const logLine = `<div>[${timeStr} Z] ${msg}</div>`;
+      logContainer.insertAdjacentHTML('beforeend', logLine);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    /* ==========================================================================
+       7. INITIALIZATION ON WINDOW LOAD
+       ========================================================================== */
+    window.onload = function() {
+      // Auto-run default bundle for immediate interactive preview
+      runAIBundleAdvisor();
+    };
+  </script>
+</body>
+</html>
